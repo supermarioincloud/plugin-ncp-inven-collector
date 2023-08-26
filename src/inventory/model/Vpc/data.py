@@ -11,6 +11,8 @@ class Labels(Model):
 class CommonCode(Model):
     code = StringType()
     code_name = StringType()
+
+
 class NatGatewayInstance(Model):
     vpc_no = StringType()
     vpc_name = StringType()
@@ -24,6 +26,7 @@ class NatGatewayInstance(Model):
     nat_gateway_description = StringType()
     zone_code = StringType()
 
+
 class NetworkAcl(Model):
     network_acl_no = StringType()
     network_acl_name = StringType()
@@ -33,11 +36,14 @@ class NetworkAcl(Model):
     create_date = StringType()
     is_default = BooleanType()
 
+
 class RouteParameter(Model):
     destination_cidr_block = StringType()
     target_type_code = StringType()
     target_no = StringType()
     target_name = StringType()
+
+
 class VpcPeeringInstance(Model):
     vpc_peering_instance_no = StringType()
     vpc_peering_name = StringType()
@@ -60,6 +66,7 @@ class VpcPeeringInstance(Model):
     is_between_accounts = BooleanType()
     reverse_vpc_peering_instance_no = StringType()
 
+
 class Subnet(Model):
     subnet_no = StringType()
     vpc_no = StringType()
@@ -71,6 +78,8 @@ class Subnet(Model):
     subnet_type = CommonCode()
     usage_type = CommonCode()
     network_acl_no = StringType()
+
+
 class RouteTable(Model):
     route_table_no = StringType()
     route_table_name = StringType()
@@ -81,6 +90,7 @@ class RouteTable(Model):
     route_table_status = CommonCode()
     route_table_description = StringType()
 
+
 class Route(Model):
     destination_cidr_block = StringType()
     target_name = StringType()
@@ -88,6 +98,7 @@ class Route(Model):
     target_type = CommonCode()
     target_no = StringType()
     is_default = BooleanType()
+
 
 class VPCNetwork(Model):
     vpc_no = StringType()
