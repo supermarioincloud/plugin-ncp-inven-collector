@@ -21,6 +21,14 @@ class CloudServiceMeta(BaseMetaData):
         return cls({'view': MetaDataView({'sub_data': sub_data})})
 
 
+class BaseResource(Model):
+    id = StringType(serialize_when_none=False)
+    name = StringType(serialize_when_none=False)
+    project = StringType(serialize_when_none=False)
+    region = StringType(serialize_when_none=False)
+    self_link = StringType(deserialize_from='selfLink', serialize_when_none=False)
+
+
 class ServerMetadata(Model):
     view = ModelType(MetaDataView)
 
@@ -53,6 +61,7 @@ class CloudServiceResponse(BaseResponse):
     })
     resource_type = StringType(default='inventory.CloudService')
     resource = PolyModelType(CloudServiceResource)
+
 
 class ErrorResource(Model):
     resource_type = StringType(default='inventory.CloudService')
