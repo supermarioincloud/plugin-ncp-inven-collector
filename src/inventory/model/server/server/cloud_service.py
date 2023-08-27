@@ -14,15 +14,11 @@ server_instance_details = TableDynamicLayout.set_fields('Server', root_path='dat
 instance_template_meta = CloudServiceMeta.set_layouts([server_instance_details])
 
 
-class ServerResource(CloudServiceResource):
-    cloud_service_group = StringType(default='Server')
-
-
-class ServerInstanceResource(ServerResource):
-    cloud_service_type = StringType(default='Schema')
+class ServerInstanceResource(CloudServiceResource):
+    cloud_service_type = StringType(default='Server')
     data = ModelType(ServerInstance)
     _metadata = ModelType(CloudServiceMeta, default=instance_template_meta, serialized_name='metadata')
 
 
-class SchemaResponse(CloudServiceResponse):
+class ServerInstanceResponse(CloudServiceResponse):
     resource = PolyModelType(ServerInstanceResource)

@@ -8,7 +8,7 @@ class CommonCode(Model):
     code_name = StringType()
 
 
-class ServerInstance(Model):
+class ServerInstance(BaseResource):
     server_instance_no = StringType(serialize_when_none=False)
     server_name = StringType(serialize_when_none=False)
     server_description = StringType(serialize_when_none=False)
@@ -38,9 +38,3 @@ class ServerInstance(Model):
     placement_group_no = StringType(serialize_when_none=False)
 
 
-class Server(BaseResource):
-    request_id = StringType()
-    return_code = StringType()
-    return_message = StringType()
-    total_rows = IntType()
-    server_instance_list = ListType(ModelType(ServerInstance), default=[])
