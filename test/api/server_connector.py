@@ -21,22 +21,18 @@ class TestServerConnector(unittest.TestCase):
         init_conf(package='src.inventory')
 
         secret_data = {
-            "access_key": "Rd0XGiJWKewPXRN6ziic",
-            "secret_key": "q0m7L8Dr8JX9BbbgTSSfPD3hZ1mdQoLGfJwgxzRg"
+            "access_key": "",
+            "secret_key": ""
         }
 
-        cls.server_connector = ServerConnector(config={},
-                                               secret_data=secret_data)
-
-
-
+        cls.server_connector = ServerConnector(config={},secret_data=secret_data, name='vserver')
         super().setUpClass()
 
     @classmethod
     def tearDownClass(cls) -> None:
         super().tearDownClass()
 
-    def test_list_snapshots(self):
+    def test_list_servers(self):
         server_list = self.server_connector.get_list_server_instance()
 
         for server in server_list:

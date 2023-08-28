@@ -17,6 +17,6 @@ CLOUD_SERVICE_GROUP_MAP = {
         'FabricCluster'
     ],
     'Vpc': [
-        'vpc',
+        'Vpc',
     ]
 }

@@ -3,7 +3,7 @@ import logging
 
 from inventory.libs.manager import NaverCloudManager
 from inventory.connector.vpc.vpc import VpcConnector
-from inventory.model.Vpc.vpc.cloud_service_type import CLOUD_SERVICE_TYPES
+# from inventory.model.Vpc.vpc.cloud_service_type import CLOUD_SERVICE_TYPES
 from inventory.model.Vpc.vpc.cloud_service import VPCNetworkResource, VPCNetworkResponse
 from inventory.model.Vpc.vpc.data import VPCNetwork
 
@@ -12,7 +12,8 @@ _LOGGER = logging.getLogger(__name__)
 
 class VPCNetworkManager(NaverCloudManager):
     connector_name = 'VpcConnector'
-    cloud_service_types = CLOUD_SERVICE_TYPES
+    # cloud_service_types = CLOUD_SERVICE_TYPES
+    print("test")
 
     def collect_cloud_service(self, params):
         _LOGGER.debug(f'** VPC Network START **')
@@ -34,12 +35,13 @@ class VPCNetworkManager(NaverCloudManager):
         network_id = ""
 
         secret_data = params['secret_data']
-        project_id = secret_data['project_id']
+        # project_id = secret_data['project_id']
 
         ##################################
         # 0. Gather All Related Resources
         # List all information through connector
         ##################################
+        print(self.connector_name)
         vpc_conn: VpcConnector = self.locator.get_connector(self.connector_name, **params)
 
         # Get lists that relate with snapshots through Google Cloud API

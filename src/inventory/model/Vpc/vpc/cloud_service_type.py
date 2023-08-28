@@ -14,12 +14,12 @@ count_by_region_conf = os.path.join(current_dir, 'widget/count_by_region.yml')
 count_by_project_conf = os.path.join(current_dir, 'widget/count_by_project.yml')
 
 cst_network = CloudServiceTypeResource()
-cst_network.name = 'VPCNetwork'
+cst_network.name = 'VPCNetworkManager'
 cst_network.provider = 'Ncloud'
 cst_network.group = 'Networking'
 cst_network.service_code = 'Networking'
 cst_network.is_primary = True
-cst_network.labels = ['Networking']
+cst_network.labels = ['Vpc']
 cst_network.tags = {
     'spaceone:icon': '',
     'spaceone:display_name': 'VPCNetwork'
@@ -27,18 +27,18 @@ cst_network.tags = {
 
 cst_network._metadata = CloudServiceTypeMeta.set_meta(
     fields=[
-        TextDyField.data_source('VPC name', 'data.vpcList.vpcName'),
-        TextDyField.data_source('Vpc No', 'data.vpcList.vpcNo'),
+        TextDyField.data_source('VPC name', 'data.vpc_list.vpc_name'),
+        TextDyField.data_source('Vpc No', 'data.vpc_list.vpc_no'),
         '''
-        TextDyField.data_source('Route No', 'data.vpcList.vpcNo'),
-        TextDyField.data_source('Subnet No', 'data.subnetList.'),
-        TextDyField.data_source('Network Peering Name', 'data.vpcList.vpcNo'),
+        TextDyField.data_source('Route No', 'data.vpc_list.vpc_no'),
+        TextDyField.data_source('Subnet No', 'data.subnet_list.'),
+        TextDyField.data_source('Network Peering Name', 'data.vpc_list.vpc_no'),
         '''
     ],
 
     search=[
-        SearchField.set(name='ID', key='data.vpcList.vpcNo'),
-        SearchField.set(name='Name', key='data.vpcList.vpcName'),
+        # SearchField.set(name='ID', key='data.vpc_list.vpc_no'),
+        SearchField.set(name='Name', key='data.vpc_list.vpc_name'),
     ],
 
     widget=[

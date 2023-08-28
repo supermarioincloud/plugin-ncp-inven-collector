@@ -9,7 +9,7 @@ VPC Network
 '''
 
 # TAB - Bucket
-vpc_network_detail_meta = ItemDynamicLayout.set_fields('VPC Network Details', fields=[
+vpc_network_detail_meta = TableDynamicLayout.set_fields('VPC Network Details', fields=[
     TextDyField.data_source('Name', 'data.vpc_list.vpcName'),
     TextDyField.data_source('Region code', 'data.vpc_list.region_code'),
     TextDyField.data_source('Status', 'data.vpcList.vpc_status'),
@@ -72,13 +72,15 @@ vpc_network_peering_meta = TableDynamicLayout.set_fields('VPC Network Peering', 
                                                              TextDyField.data_source('Status',
                                                                                      'vpc_peering_instance_status'),
                                                          ])
-
+'''
 instance_template_meta = CloudServiceMeta.set_layouts([vpc_network_detail_meta,
                                                        vpc_network_subnets_meta,
                                                        vpc_network_acl_meta,
                                                        vpc_network_gate_way_instance_meta,
                                                        vpc_network_route_meta,
                                                        vpc_network_peering_meta])
+'''
+instance_template_meta = CloudServiceMeta.set_layouts([vpc_network_detail_meta])
 
 
 class VPCResource(CloudServiceResource):

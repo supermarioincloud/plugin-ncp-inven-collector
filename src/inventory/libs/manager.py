@@ -9,6 +9,7 @@ from inventory.libs.connector import NaverCloudConnector
 from inventory.libs.schema.region import RegionResource, RegionResponse
 from inventory.libs.schema.cloud_service import ErrorResourceResponse
 
+
 _LOGGER = logging.getLogger(__name__)
 
 
