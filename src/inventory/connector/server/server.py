@@ -25,8 +25,8 @@ class ServerConnector(NaverCloudConnector):
             api_response = self.api.get_server_instance_list(get_server_instance_list_request)
             print(api_response)
 
-            for ServerInstance in api_response.get('server_instance_list', []):
-                instance_list.append(ServerInstance)
+            for server_instance in api_response.server_instance_list:
+                instance_list.append(server_instance)
 
             return instance_list
         except ApiException as e:
