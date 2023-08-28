@@ -1,6 +1,6 @@
 from schematics import Model
 from schematics.types import ModelType, ListType, StringType, IntType, DateTimeType, BooleanType
-from spaceone.inventory.libs.schema.cloud_service import BaseResource
+from inventory.libs.schema.cloud_service import CloudServiceResource
 
 
 class Labels(Model):
