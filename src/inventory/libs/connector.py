@@ -30,9 +30,9 @@ class NaverCloudConnector(BaseConnector):
         configuration = ncloud_vserver.Configuration()
 
         # apikeys = ncloud_apikey.ncloud_key.NcloudKey().keys()
-        configuration.access_key = ''
+        configuration.access_key = 'Rd0XGiJWKewPXRN6ziic'
         #apikeys['access_key']
-        configuration.secret_key = ''
+        configuration.secret_key = 'q0m7L8Dr8JX9BbbgTSSfPD3hZ1mdQoLGfJwgxzRg'
         #apikeys['secret_key']
 
         self.api = ncloud_vserver.V2Api(ncloud_vserver.ApiClient(configuration))
