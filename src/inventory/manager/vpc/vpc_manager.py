@@ -1,18 +1,16 @@
 import time
 import logging
-from ipaddress import ip_address, IPv4Address
 
 from inventory.libs.manager import NaverCloudManager
-from inventory.libs.schema.base import ReferenceModel
 from inventory.connector.networking.vpc_network import VPCNetworkConnector
-from inventory.model.networking.vpc_network.cloud_service_type import CLOUD_SERVICE_TYPES
-from inventory.model.networking.vpc_network.cloud_service import VPCNetworkResource, VPCNetworkResponse
-from inventory.model.networking.vpc_network.data import VPCNetwork, IPAddress
+from inventory.model.Vpc import CLOUD_SERVICE_TYPES
+from inventory.model.Vpc import VPCNetworkResource, VPCNetworkResponse
+from inventory.model.Vpc import VPCNetwork
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class VPCNetworkManager(GoogleCloudManager):
+class VPCNetworkManager(NaverCloudManager):
     connector_name = 'VPCNetworkConnector'
     cloud_service_types = CLOUD_SERVICE_TYPES
 
@@ -46,10 +44,10 @@ class VPCNetworkManager(GoogleCloudManager):
 
         # Get lists that relate with snapshots through Google Cloud API
         networks = vpc_conn.list_networks()
-        firewalls = vpc_conn.list_firewall()
+        # firewalls = vpc_conn.list_firewall()
         subnets = vpc_conn.list_subnetworks()
         routes = vpc_conn.list_routes()
-        regional_address = vpc_conn.list_regional_addresses()
+        # regional_address = vpc_conn.list_regional_addresses()
 
         for network in networks:
             try:
@@ -58,33 +56,20 @@ class VPCNetworkManager(GoogleCloudManager):
                 ##################################
                 network_id = network.get('id')
                 network_identifier = network.get('selfLink')
-                matched_firewall = self._get_matched_firewalls(network_identifier, firewalls)
-                matched_route = self.get_matched_route(network_identifier, routes)
-                matched_subnets = self._get_matched_subnets(network_identifier, subnets)
-                region = self.match_region_info('global')
+                # matched_firewall = self._get_matched_firewalls(network_identifier, firewalls)
+                # matched_route = self.get_matched_route(network_identifier, routes)
+                # matched_subnets = self._get_matched_subnets(network_identifier, subnets)
+                # region = self.match_region_info('global')
                 peerings = self.get_peering(network)
 
+                '''
                 network.update({
                     'mode': 'Auto' if network.get('autoCreateSubnetworks') else 'Custom',
                     'project': secret_data['project_id'],
-                    'global_dynamic_route': self._get_global_dynamic_route(network, 'not_mode'),
-                    'dynamic_routing_mode': self._get_global_dynamic_route(network, 'mode'),
                     'subnet_creation_mode': 'Auto' if network.get('autoCreateSubnetworks') else 'Custom',
-                    'ip_address_data': self.get_internal_ip_address_in_use(network, regional_address),
                     'peerings': peerings,
-                    'route_data': {
-                        'total_number': len(matched_route),
-                        'route': matched_route
-                    },
-                    'firewall_data': {
-                        'total_number': len(matched_firewall),
-                        'firewall': matched_firewall
-                    },
-                    'subnetwork_data': {
-                        'total_number': len(matched_subnets),
-                        'subnets': matched_subnets
-                    },
                 })
+                '''
 
                 # No labels
                 _name = network.get('name', '')
@@ -100,15 +85,14 @@ class VPCNetworkManager(GoogleCloudManager):
                 vpc_resource = VPCNetworkResource({
                     'name': _name,
                     'account': project_id,
-                    'region_code': region.get('region_code'),
-                    'data': vpc_data,
-                    'reference': ReferenceModel(vpc_data.reference())
+                    # 'region_code': region.get('region_code'),
+
                 })
 
                 ##################################
                 # 4. Make Collected Region Code
                 ##################################
-                self.set_region_code('global')
+                # self.set_region_code('global')
 
                 ##################################
                 # 5. Make Resource Response Object
@@ -123,6 +107,7 @@ class VPCNetworkManager(GoogleCloudManager):
         _LOGGER.debug(f'** VPC Network Finished {time.time() - start_time} Seconds **')
         return collected_cloud_services, error_responses
 
+    '''
     def get_internal_ip_address_in_use(self, network, regional_address):
         all_internal_addresses = []
 
@@ -144,6 +129,7 @@ class VPCNetworkManager(GoogleCloudManager):
                 all_internal_addresses.append(IPAddress(ip_address, strict=False))
 
         return all_internal_addresses
+    '''
 
     def get_peering(self, network):
         updated_peering = []
@@ -179,6 +165,8 @@ class VPCNetworkManager(GoogleCloudManager):
             })
             updated_peering.append(peer)
         return updated_peering
+
+    '''
 
     def get_matched_route(self, network, routes):
         route_vos = []
@@ -291,5 +279,7 @@ class VPCNetworkManager(GoogleCloudManager):
             instance = self.get_param_in_url(url_user, 'instances')
             used = f'VM instance {instance} (Zone: {zone})'
             parsed_used_by.append(used)
+    
 
         return parsed_used_by
+        '''

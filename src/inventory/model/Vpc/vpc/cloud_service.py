@@ -1,10 +1,8 @@
 from schematics.types import ModelType, StringType, PolyModelType
-from inventory.libs.schema.metadata.dynamic_field import TextDyField, EnumDyField, ListDyField, DateTimeDyField
-from inventory.model.server.server import *
+from inventory.libs.schema.metadata.dynamic_field import TextDyField, DateTimeDyField
 from inventory.libs.schema.metadata.dynamic_layout import ItemDynamicLayout, TableDynamicLayout
 from inventory.libs.schema.cloud_service import CloudServiceResource, CloudServiceResponse, CloudServiceMeta
-
-
+from inventory.model.Vpc import VPCNetwork
 '''
 VPC Network
 '''
@@ -18,7 +16,7 @@ vpc_network_detail_meta = ItemDynamicLayout.set_fields('VPC Network Details', fi
     DateTimeDyField.data_source('Creation Time', 'data.vpcList.createDate'),
 ])
 
-#root_path는 찍어봐야지 확정 지을수 있을듯
+
 vpc_network_subnets_meta = TableDynamicLayout.set_fields('Subnets', root_path='data.subnetList', fields=[
     TextDyField.data_source('Name', 'subnetName'),
     TextDyField.data_source('Region', 'zoneCode'),
@@ -54,7 +52,6 @@ vpc_network_gate_way_instance_meta = TableDynamicLayout.set_fields('Network Gate
     TextDyField.data_source('Vpc Name', 'vpcName'),
 ])
 
-#defaualt_badge도 commonCode가 찍히는거 보고 해야할듯
 vpc_network_peering_meta = TableDynamicLayout.set_fields('VPC Network Peering', root_path='data.vpcPeeringInstanceList', fields=[
     TextDyField.data_source('Name', 'sourceVpcName '),
     TextDyField.data_source('Description', ' vpcPeeringDescription'),
@@ -66,3 +63,23 @@ vpc_network_peering_meta = TableDynamicLayout.set_fields('VPC Network Peering', 
     TextDyField.data_source('your User ID', 'sourceVpcLoginId'),
     TextDyField.data_source('Status', 'vpcPeeringInstanceStatus'),
 ])
+
+instance_template_meta = CloudServiceMeta.set_layouts([vpc_network_detail_meta,
+                                                       vpc_network_subnets_meta,
+                                                       vpc_network_acl_meta,
+                                                       vpc_network_gate_way_instance_meta,
+                                                       vpc_network_route_meta,
+                                                       vpc_network_peering_meta])
+
+class VPCResource(CloudServiceResource):
+    cloud_service_group = StringType(default='Networking')
+
+
+class VPCNetworkResource(VPCResource):
+    cloud_service_type = StringType(default='VPCNetwork')
+    data = ModelType(VPCNetwork)
+    _metadata = ModelType(CloudServiceMeta, default=instance_template_meta, serialized_name='metadata')
+
+
+class VPCNetworkResponse(CloudServiceResponse):
+    resource = PolyModelType(VPCNetworkResource)

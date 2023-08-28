@@ -15,5 +15,8 @@ CLOUD_SERVICE_GROUP_MAP = {
         'NetworkInterface',
         'ACG',
         'FabricCluster'
+    ],
+    'Vpc': [
+        'vpc',
     ]
 }
