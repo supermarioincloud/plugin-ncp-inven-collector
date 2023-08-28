@@ -25,8 +25,8 @@ class TestServerConnector(unittest.TestCase):
             "secret_key": ""
         }
 
-        cls.server_connector = ServerConnector( config={},
-                                               secret_data=secret_data)
+        cls.server_connector = ServerConnector(config={},
+                                               secret_data=secret_data, name='vserver')
 
         super().setUpClass()
 
