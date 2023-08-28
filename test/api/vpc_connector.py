@@ -9,6 +9,7 @@ from spaceone.core import config
 from spaceone.core import utils
 from spaceone.core.transaction import Transaction
 from spaceone.core.config import init_conf
+from inventory.connector.vpc.vpc import VpcConnector
 from inventory.connector.server.server import ServerConnector
 from inventory.libs.connector import NaverCloudConnector
 
@@ -25,10 +26,8 @@ class TestServerConnector(unittest.TestCase):
             "secret_key": "q0m7L8Dr8JX9BbbgTSSfPD3hZ1mdQoLGfJwgxzRg"
         }
 
-        cls.server_connector = ServerConnector(config={},
-                                               secret_data=secret_data)
-
-
+        cls.vpc_connector = VpcConnector(config={},
+                                         secret_data=secret_data)
 
         super().setUpClass()
 
@@ -37,7 +36,7 @@ class TestServerConnector(unittest.TestCase):
         super().tearDownClass()
 
     def test_list_snapshots(self):
-        server_list = self.server_connector.get_list_server_instance()
+        server_list = self.vpc_connector.get_list_vpc_instance()
 
         for server in server_list:
             print('=====')

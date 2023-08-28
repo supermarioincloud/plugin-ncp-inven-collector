@@ -2,16 +2,16 @@ import time
 import logging
 
 from inventory.libs.manager import NaverCloudManager
-from inventory.connector.networking.vpc_network import VPCNetworkConnector
-from inventory.model.Vpc import CLOUD_SERVICE_TYPES
-from inventory.model.Vpc import VPCNetworkResource, VPCNetworkResponse
-from inventory.model.Vpc import VPCNetwork
+from inventory.connector.vpc.vpc import VpcConnector
+from inventory.model.Vpc.vpc.cloud_service_type import CLOUD_SERVICE_TYPES
+from inventory.model.Vpc.vpc.cloud_service import VPCNetworkResource, VPCNetworkResponse
+from inventory.model.Vpc.vpc.data import VPCNetwork
 
 _LOGGER = logging.getLogger(__name__)
 
 
 class VPCNetworkManager(NaverCloudManager):
-    connector_name = 'VPCNetworkConnector'
+    connector_name = 'VpcConnector'
     cloud_service_types = CLOUD_SERVICE_TYPES
 
     def collect_cloud_service(self, params):
@@ -40,16 +40,17 @@ class VPCNetworkManager(NaverCloudManager):
         # 0. Gather All Related Resources
         # List all information through connector
         ##################################
-        vpc_conn: VPCNetworkConnector = self.locator.get_connector(self.connector_name, **params)
+        vpc_conn: VpcConnector = self.locator.get_connector(self.connector_name, **params)
 
         # Get lists that relate with snapshots through Google Cloud API
-        networks = vpc_conn.list_networks()
+        networks = vpc_conn.get_list_vpc_instance()
         # firewalls = vpc_conn.list_firewall()
-        subnets = vpc_conn.list_subnetworks()
-        routes = vpc_conn.list_routes()
+        # subnets = vpc_conn.list_subnetworks()
+        # routes = vpc_conn.list_routes()
         # regional_address = vpc_conn.list_regional_addresses()
 
         for network in networks:
+            print(network)
             try:
                 ##################################
                 # 1. Set Basic Information

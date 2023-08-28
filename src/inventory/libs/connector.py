@@ -2,13 +2,13 @@ import logging
 
 from spaceone.core.connector import BaseConnector
 import ncloud_vserver
+import ncloud_vpc
 from ncloud_vserver.rest import ApiException
-import ncloud_apikey
 
 
 class NaverCloudConnector(BaseConnector):
-    naver_client_service = 'server'
-    version = 'v1'
+    naver_client_service = 'vpc'
+    version = 'v2'
 
     def __init__(self, *args, **kwargs):
         """
@@ -27,15 +27,15 @@ class NaverCloudConnector(BaseConnector):
         super().__init__(*args, **kwargs)
         secret_data = kwargs.get('secret_data')
 
-        configuration = ncloud_vserver.Configuration()
+        configuration = ncloud_vpc.Configuration()
 
         # apikeys = ncloud_apikey.ncloud_key.NcloudKey().keys()
-        configuration.access_key = ''
-        #apikeys['access_key']
-        configuration.secret_key = ''
-        #apikeys['secret_key']
+        configuration.access_key = 'Rd0XGiJWKewPXRN6ziic'
+        # apikeys['access_key']
+        configuration.secret_key = 'q0m7L8Dr8JX9BbbgTSSfPD3hZ1mdQoLGfJwgxzRg'
+        # apikeys['secret_key']
 
-        self.api = ncloud_vserver.V2Api(ncloud_vserver.ApiClient(configuration))
+        self.api = ncloud_vpc.V2Api(ncloud_vpc.ApiClient(configuration))
 
     def verify(self, **kwargs):
         if self.api is None:

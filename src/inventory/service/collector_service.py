@@ -49,6 +49,8 @@ class CollectorService(BaseService):
         }
         return {'metadata': capability}
 
+
+
     @transaction
     @check_required(['options', 'secret_data'])
     def verify(self, params):
