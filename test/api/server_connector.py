@@ -8,8 +8,8 @@ from spaceone.core.unittest.runner import RichTestRunner
 from spaceone.core import config
 from spaceone.core import utils
 from spaceone.core.transaction import Transaction
-from src.inventory.connector.server.server import ServerConnector
-from src.inventory.libs.connector import NaverCloudConnector
+from inventory.connector.server.server import ServerConnector
+from inventory.libs.connector import NaverCloudConnector
 
 
 class TestServerConnector(unittest.TestCase):
