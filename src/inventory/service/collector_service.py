@@ -4,7 +4,7 @@ import time
 import json
 from spaceone.core.service import *
 
-from inventory.manager import NCPManager
+from inventory.libs.manager import NaverCloudManager
 from inventory.conf.cloud_service_conf import *
 from inventory.libs.schema.cloud_service import ErrorResourceResponse
 
@@ -61,7 +61,7 @@ class CollectorService(BaseService):
         options = params['options']
         secret_data = params.get('secret_data', {})
         if secret_data != {}:
-            naver_manager = NCPManager()  # 수정된 부분
+            naver_manager = NaverCloudManager()  # 수정된 부분
             active = naver_manager.verify({}, secret_data)
 
         return {}
@@ -80,7 +80,7 @@ class CollectorService(BaseService):
 
         start_time = time.time()
 
-        _LOGGER.debug(f'EXECUTOR START: Google Cloud Service')
+        _LOGGER.debug(f'EXECUTOR START: Naver Cloud Service')
         # Get target manager to collect
         try:
             self.execute_managers = self._get_target_execute_manager(params.get('options', {}))
