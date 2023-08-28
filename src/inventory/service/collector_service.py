@@ -61,8 +61,8 @@ class CollectorService(BaseService):
         options = params['options']
         secret_data = params.get('secret_data', {})
         if secret_data != {}:
-            google_manager = NCPManager()  # 수정된 부분
-            active = google_manager.verify({}, secret_data)
+            naver_manager = NCPManager()  # 수정된 부분
+            active = naver_manager.verify({}, secret_data)
 
         return {}
 
