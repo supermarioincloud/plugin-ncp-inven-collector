@@ -23,8 +23,8 @@ class TestServerConnector(unittest.TestCase):
         init_conf(package='src.inventory')
 
         secret_data = {
-            "access_key": "Rd0XGiJWKewPXRN6ziic",
-            "secret_key": "q0m7L8Dr8JX9BbbgTSSfPD3hZ1mdQoLGfJwgxzRg"
+            "access_key": "",
+            "secret_key": ""
         }
 
         cls.server_connector = ServerConnector(config={},secret_data=secret_data, name='vserver')
