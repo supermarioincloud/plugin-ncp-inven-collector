@@ -11,7 +11,7 @@ from inventory.model.server.server.data import ServerInstance
 _LOGGER = logging.getLogger(__name__)
 
 
-class SchemaManager(NaverCloudManager):
+class ServerManager(NaverCloudManager):
     connector_name = 'ServerConnector'
     cloud_service_types = CLOUD_SERVICE_TYPES
 
@@ -47,12 +47,21 @@ class SchemaManager(NaverCloudManager):
                 ##################################
                 # 1. Set Basic Information
                 ##################################
-                server_id = server.get('server_instance_no')
-                _name = server.get('server_name', '')
+                server_id = server.server_instance_no
+
+                _name = server.server_name
                 ##################################
                 # 2. Make Base Data
                 ##################################
-                server_data = ServerInstance(server, strict=False)
+                # server_data = ServerInstance(server)
+                # print(server_data)
+                server_data = {
+                    'server_instance_no': server.server_instance_no,
+                    'server_name': server.server_name
+                }
+
+                print(server_data)
+
 
                 ##################################
                 # 3. Make Return Resource
@@ -61,6 +70,7 @@ class SchemaManager(NaverCloudManager):
                     'name': _name,
                     'data': server_data
                 })
+                print(server_resource.name)
 
                 ##################################
                 # 4. Make Collected Region Code
@@ -72,6 +82,8 @@ class SchemaManager(NaverCloudManager):
                 # List of LoadBalancingResponse Object
                 ##################################
                 collected_cloud_services.append(ServerInstanceResponse({'resource': server_resource}))
+
+                print(collected_cloud_services[0]['resource']['name'])
 
             except Exception as e:
                 _LOGGER.error(f'[collect_cloud_service] => {e}', exc_info=True)
