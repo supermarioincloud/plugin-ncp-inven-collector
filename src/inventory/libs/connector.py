@@ -4,12 +4,11 @@ from spaceone.core.connector import BaseConnector
 import ncloud_vserver
 import ncloud_vpc
 from ncloud_vserver.rest import ApiException
-import ncloud_apikey
 
 
 class NaverCloudConnector(BaseConnector):
-    naver_client_service = 'server'
-    version = 'v1'
+    naver_client_service = 'vpc'
+    version = 'v2'
 
     def __init__(self, *args, **kwargs):
         """
