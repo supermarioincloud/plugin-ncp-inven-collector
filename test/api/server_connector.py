@@ -12,7 +12,7 @@ from spaceone.core.config import init_conf
 from src.inventory.connector.server.server import ServerConnector
 from inventory.manager.server.server_manager import ServerManager
 from src.inventory.libs.connector import NaverCloudConnector
-
+from src.inventory.service.collector_service import CollectorService
 
 
 class TestServerConnector(unittest.TestCase):
@@ -27,7 +27,7 @@ class TestServerConnector(unittest.TestCase):
             "secret_key": ""
         }
 
-        cls.server_connector = ServerConnector(config={},secret_data=secret_data, name='vserver')
+        cls.server_connector = ServerConnector(config={}, secret_data=secret_data, name='vserver')
         super().setUpClass()
 
     @classmethod
@@ -44,10 +44,8 @@ class TestServerConnector(unittest.TestCase):
 
 
 
+
+
+
 if __name__ == "__main__":
     unittest.main(testRunner=RichTestRunner)
-
-
-
-
-
