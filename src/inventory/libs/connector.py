@@ -28,18 +28,18 @@ class NaverCloudConnector(BaseConnector):
         super().__init__(*args, **kwargs)
 
         secret_data = kwargs.get('secret_data')
-        name = kwargs.get('name')
+        # name = kwargs.get('name')
 
-        if name == 'vserver':
-            configuration = ncloud_vserver.Configuration()
-            configuration.access_key = secret_data.get('access_key')
-            configuration.secret_key = secret_data.get('secret_key')
-            self.api = ncloud_vserver.V2Api(ncloud_vserver.ApiClient(configuration))
-        elif name == 'vpc':
-            configuration = ncloud_vpc.Configuration()
-            configuration.access_key = secret_data.get('access_key')
-            configuration.secret_key = secret_data.get('secret_key')
-            self.api = ncloud_vpc.V2Api(ncloud_vpc.ApiClient(configuration))
+        # if name == 'vserver':
+        configuration = ncloud_vserver.Configuration()
+        configuration.access_key = secret_data.get('access_key')
+        configuration.secret_key = secret_data.get('secret_key')
+        self.api = ncloud_vserver.V2Api(ncloud_vserver.ApiClient(configuration))
+        # elif name == 'vpc':
+        #     configuration = ncloud_vpc.Configuration()
+        #     configuration.access_key = secret_data.get('access_key')
+        #     configuration.secret_key = secret_data.get('secret_key')
+        #     self.api = ncloud_vpc.V2Api(ncloud_vpc.ApiClient(configuration))
 
     def verify(self, **kwargs):
         if self.api is None:

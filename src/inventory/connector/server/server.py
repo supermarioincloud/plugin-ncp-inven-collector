@@ -21,14 +21,11 @@ class ServerConnector(NaverCloudConnector):
         instance_list = []
 
         get_server_instance_list_request = ncloud_vserver.GetServerInstanceListRequest()
-        print('get_list_server_instance method 시작')
         try:
             api_response = self.api.get_server_instance_list(get_server_instance_list_request)
-            print(api_response)
 
             for server_instance in api_response.server_instance_list:
                 instance_list.append(server_instance)
-
             return instance_list
         except ApiException as e:
             print("Exception when calling V2Api->get_login_key_list: %s\n" % e)

@@ -9,8 +9,10 @@ from spaceone.core import config
 from spaceone.core import utils
 from spaceone.core.transaction import Transaction
 from spaceone.core.config import init_conf
-from inventory.connector.server.server import ServerConnector
-from inventory.libs.connector import NaverCloudConnector
+from src.inventory.connector.server.server import ServerConnector
+from inventory.manager.server.server_manager import ServerManager
+from src.inventory.libs.connector import NaverCloudConnector
+from src.inventory.service.collector_service import CollectorService
 
 
 class TestServerConnector(unittest.TestCase):
@@ -25,7 +27,7 @@ class TestServerConnector(unittest.TestCase):
             "secret_key": ""
         }
 
-        cls.server_connector = ServerConnector(config={},secret_data=secret_data, name='vserver')
+        cls.server_connector = ServerConnector(config={}, secret_data=secret_data, name='vserver')
         super().setUpClass()
 
     @classmethod
@@ -39,6 +41,10 @@ class TestServerConnector(unittest.TestCase):
             print('=====')
             print(server)
             print('=====')
+
+
+
+
 
 
 if __name__ == "__main__":
