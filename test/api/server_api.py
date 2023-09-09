@@ -20,8 +20,8 @@ class TestCollector(TestCase):
         options = {
         }
         secret_data = {
-            "access_key": "Rd0XGiJWKewPXRN6ziic",
-            "secret_key": "q0m7L8Dr8JX9BbbgTSSfPD3hZ1mdQoLGfJwgxzRg"
+            "access_key": "",
+            "secret_key": ""
         }
         v_info = self.inventory.Collector.verify({'options': options, 'secret_data': secret_data})
         print_json(v_info)
